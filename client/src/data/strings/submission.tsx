@@ -14,7 +14,7 @@ export const ResubmissionData = {
       complete portfolio. We would encourage you to go through{' '}
       <Text color={theme.colors.brand['500']} d="inline">
         {' '}
-        <Link href="https://neog.camp/qualifier/point-system">
+        <Link href="https://neog.camp/qualifier/point-system" isExternal>
           mark15 guide
         </Link>
       </Text>{' '}
