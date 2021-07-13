@@ -48,7 +48,8 @@ const SignUpSchema = yup.object().shape({
     .string()
     .required('Last name is required.')
     .matches(/^[A-Za-z ]*$/, 'Please use only alphabets.')
-    .trim(),
+    .trim()
+    .min(2, 'Must be atleast 2 characters long.'),
   email: yup
     .string()
     .email('Email must be a valid email address.')
@@ -76,11 +77,12 @@ export default function SignUp() {
   const [showPassword, setShowpassword] = useState<boolean>(false)
   const [imgLoaded, setImgLoaded] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (authState?.isAuthenticated) {
-      router.push('/dashboard')
-    }
-  }, [authState?.isAuthenticated])
+  // useEffect(() => {
+  //   if (authState?.isAuthenticated) {
+  //     console.log('IM GETTING CALLED')
+  //     router.push('/dashboard')
+  //   }
+  // }, [authState?.isAuthenticated])
 
   async function handleSubmit(data: SignUpValues) {
     setIsLoading(true)
