@@ -14,7 +14,7 @@ import { getDashboard } from '../../services/axiosService'
 import withAuth from '../../context/WithAuth'
 
 function Dashboard() {
-  const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
+  const [status, setstatus] = useState('portfolio_not_submitted')
   const [submissionNo, setSubmissionNo] = useState(null)
   useEffect(() => {
     async function fetch() {
@@ -22,14 +22,13 @@ function Dashboard() {
         console.log(user)
         const portfolio = user.foundPortfolio.portfolioUrl
         portfolio !== undefined &&
-          (setCurrentStatus(portfolio.status),
-          setSubmissionNo(portfolio.submissionNo))
+          (setstatus(portfolio.status), setSubmissionNo(portfolio.submissionNo))
       })
     }
     fetch()
   }, [])
 
-  const status = data.find((e) => e.status == currentStatus)
+  const status = data.find((e) => e.status == status)
   console.log(status)
   return (
     <Layout>

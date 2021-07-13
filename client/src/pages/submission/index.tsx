@@ -28,8 +28,6 @@ const SubmissionWindow: React.FC = () => {
   const { authState, setAuthState } = useAuth()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-
-
   useEffect(() => {
     if (localStorage) {
       const localCheckData = localStorage.getItem('mark15')
@@ -37,13 +35,6 @@ const SubmissionWindow: React.FC = () => {
       if (localCheckData) {
         localParsedCheckData = JSON.parse(localCheckData)
       }
-      console.log(
-        'locall',
-        CheckListData.length,
-        localParsedCheckData
-          ? Object.keys(localParsedCheckData).length
-          : localParsedCheckData
-      )
       if (
         !(
           localParsedCheckData &&
@@ -67,7 +58,6 @@ const SubmissionWindow: React.FC = () => {
               localParsedCheckData[checkItem.id]?.length
           )
         })
-        console.log('checksss', checkForAllChecks)
         if (!checkForAllChecks) {
           setIsLoading(true)
           router.push('/dashboard')
@@ -84,9 +74,7 @@ const SubmissionWindow: React.FC = () => {
           }, 2000)
         }
       }
-    } else if (
-      authState?.user?.submissionData?.currentStatus === 'under review'
-    ) {
+    } else if (authState?.user?.submissionData?.status === 'under review') {
       setIsLoading(true)
 
       router.push('/submission/congrats')
@@ -135,7 +123,7 @@ const SubmissionWindow: React.FC = () => {
           'neogSubmission',
           JSON.stringify({
             submissionNo: response.data.submissionNo,
-            currentStatus: response.data.currentStatus,
+            status: response.data.status,
           })
         )
         setAuthState((prev) => ({
@@ -144,7 +132,7 @@ const SubmissionWindow: React.FC = () => {
             ...prev.user,
             submissionData: {
               submissionNo: response.data.submissionNo,
-              currentStatus: response.data.currentStatus,
+              status: response.data.status,
             },
           },
         }))
@@ -196,67 +184,67 @@ const SubmissionWindow: React.FC = () => {
   ]
 
   return isLoading ? (
-      <Center minH="100vh">
-        <Spinner />
-      </Center>
-      ) : (
-      <Layout>
-        <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
-        <Heading
-          as="h1"
-          size="xl"
-          color={theme.colors.brand['500']}
-          fontFamily="Inter"
-          pt="4"
-        >
-          {SubmissionData.heading}
-        </Heading>
-        <Box
-          borderWidth="1px"
-          borderRadius="lg"
-          overflow="hidden"
-          m="10"
-          p="5"
-          background={theme.colors.black['700']}
-          border="none"
-        >
-          <Flex flexDirection="column">
-            <Flex>
-              <Heading
-                as="h2"
-                size="md"
-                p="2"
-                ml="2"
-                color={theme.colors.black['50']}
-              >
-                {SubmissionData.text}
-              </Heading>
-            </Flex>
-            <Flex
-              justifyContent={['stretch', 'center']}
-              alignItems="center"
-              p="5"
-              flexDirection={['column', 'row']}
-              gap="1rem"
+    <Center minH="100vh">
+      <Spinner />
+    </Center>
+  ) : (
+    <Layout>
+      <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
+      <Heading
+        as="h1"
+        size="xl"
+        color={theme.colors.brand['500']}
+        fontFamily="Inter"
+        pt="4"
+      >
+        {SubmissionData.heading}
+      </Heading>
+      <Box
+        borderWidth="1px"
+        borderRadius="lg"
+        overflow="hidden"
+        m="10"
+        p="5"
+        background={theme.colors.black['700']}
+        border="none"
+      >
+        <Flex flexDirection="column">
+          <Flex>
+            <Heading
+              as="h2"
+              size="md"
+              p="2"
+              ml="2"
+              color={theme.colors.black['50']}
             >
-              <Input
-                placeholder="https://adarshbalika.netlify.app"
-                onChange={checkPortfolioUrl}
-                ref={inputRef}
-                border="none"
-                background={theme.colors.black['600']}
-                width="100%"
-                color={theme.colors.black['50']}
-                maxWidth="300px"
-              />
-              <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
-            </Flex>
-            <Text color={theme.colors.red['500']} textAlign="center">
-              {checkInput}
-            </Text>
+              {SubmissionData.text}
+            </Heading>
           </Flex>
-        </Box>
-      </Layout>
+          <Flex
+            justifyContent={['stretch', 'center']}
+            alignItems="center"
+            p="5"
+            flexDirection={['column', 'row']}
+            gap="1rem"
+          >
+            <Input
+              placeholder="https://adarshbalika.netlify.app"
+              onChange={checkPortfolioUrl}
+              ref={inputRef}
+              border="none"
+              background={theme.colors.black['600']}
+              width="100%"
+              color={theme.colors.black['50']}
+              maxWidth="300px"
+            />
+            <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
+          </Flex>
+          <Text color={theme.colors.red['500']} textAlign="center">
+            {checkInput}
+          </Text>
+        </Flex>
+      </Box>
+    </Layout>
   )
 }
 

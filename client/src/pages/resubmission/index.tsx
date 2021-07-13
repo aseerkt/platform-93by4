@@ -25,9 +25,8 @@ const ReSubmissionWindow: React.FC = () => {
   const [checkInput, setCheckInput] = useState<string>('')
   const { authState, setAuthState } = useAuth()
 
-
   useEffect(() => {
-    if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
+    if (authState?.user?.submissionData?.status !== 'needs revision') {
       router.push('/dashboard')
     }
   }, [])
@@ -71,7 +70,7 @@ const ReSubmissionWindow: React.FC = () => {
           'neogSubmission',
           JSON.stringify({
             submissionNo: response.data.submissionNo,
-            currentStatus: response.data.currentStatus,
+            status: response.data.status,
           })
         )
         setAuthState((prev) => ({
@@ -80,7 +79,7 @@ const ReSubmissionWindow: React.FC = () => {
             ...prev.user,
             submissionData: {
               submissionNo: response.data.submissionNo,
-              currentStatus: response.data.currentStatus,
+              status: response.data.status,
             },
           },
         }))
