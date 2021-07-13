@@ -22,8 +22,8 @@ function Dashboard() {
         console.log(user)
         const portfolio = user.foundPortfolio.portfolioUrl
         portfolio !== undefined &&
-        (setCurrentStatus(portfolio.status),
-        setSubmissionNo(portfolio.submissionNo))
+          (setCurrentStatus(portfolio.status),
+          setSubmissionNo(portfolio.submissionNo))
       })
     }
     fetch()
