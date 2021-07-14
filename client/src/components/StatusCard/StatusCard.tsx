@@ -3,7 +3,7 @@ import { Flex, Heading, Spacer, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import DashboardImage from '../../images/dashboard-girl.svg'
 import { theme } from '../../themes'
-export function StatusCard({ status, bgColor, step, submissionNo }: any) {
+export function StatusCard({ status, bgColor, submissionNo }: any) {
   return (
     <Flex
       bgColor={bgColor}
@@ -16,29 +16,22 @@ export function StatusCard({ status, bgColor, step, submissionNo }: any) {
         justifyContent="center"
         width={['100%', '100%', '60%']}
       >
-        <a
-          href={
-            status.status == 'portfolio_needs_revision' ? '/resubmission' : ''
-          }
+        {' '}
+        <Heading
+          fontSize={['xl', '2xl', '3xl']}
+          color={theme.colors.brand['500']}
         >
           {' '}
+          Current Status :{' '}
           <Heading
             fontSize={['xl', '2xl', '3xl']}
-            color={theme.colors.brand['500']}
+            as="span"
+            color={status?.color == 'red' ? '#F13C3C' : theme.colors.white}
           >
-            {' '}
-            Current Status :{' '}
-            <Heading
-              fontSize={['xl', '2xl', '3xl']}
-              as="span"
-              color={status?.color == 'red' ? '#F13C3C' : theme.colors.white}
-            >
-              {' ' + status.statusText}
-              <br />
-            </Heading>
+            {' ' + status.statusText}
+            <br />
           </Heading>
-        </a>
-
+        </Heading>
         <Text
           fontSize="xl"
           fontWeight="500"
