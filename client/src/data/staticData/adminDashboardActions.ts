@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 
 export const adminDashboardActions = [
   {
@@ -11,5 +11,4 @@ export const adminDashboardActions = [
     title: 'Enough for today, will review tomorrow',
     link: '/',
   },
-  
-];
+]

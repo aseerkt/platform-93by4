@@ -1,3 +1,4 @@
+import { Response } from 'express'
 import axios from 'axios'
 import { User } from '../context/AuthContext'
 import { LoginValues } from '../pages/auth/login'
@@ -77,4 +78,8 @@ export const resendLink = async (email: string | undefined) => {
     email,
   })
   return response
+}
+
+export const submissionLink = async () => {
+  const response = await apiClient.post('')
 }
