@@ -13,11 +13,18 @@ import axios from 'axios'
 import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
+import { submissionLink } from '../../services/axiosService'
 import { theme } from '../../themes'
 import { SubmissionData } from '../../data/strings/submission'
 import withAuth from '../../context/WithAuth'
 import { useAuth } from '../../context/AuthContext'
 import { CheckListData } from '../../data/staticData/mark15'
+
+export interface submissionValues {
+  status: string
+  portfolioUrl: string
+  submissionNo: number
+}
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -100,17 +107,11 @@ const SubmissionWindow: React.FC = () => {
 
   const submitPortfolioUrl = async (): Promise<void> => {
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/submit',
-        {
-          status: 'under review',
-          portfolioUrl: inputRef.current.value,
-          submissionNo: 0,
-        },
-        {
-          withCredentials: true,
-        }
-      )
+      const response = await submissionLink({
+        status: 'under review',
+        portfolioUrl: inputRef.current.value,
+        submissionNo: 0,
+      })
       if (response.status === 200) {
         toast({
           title: 'Successfully Submitted!',
