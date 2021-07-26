@@ -27,7 +27,7 @@ export const submitHandler: RequestHandler = async (req: AuthRequest, res) => {
     if (foundUser && foundUser.portfolioUrl) {
       return res.status(302).json({
         submissionNo: currentSubmissionCount + 1,
-        currentStatus: foundUser.portfolioUrl.status,
+        status: foundUser.portfolioUrl.status,
         message: 'your portfolio is already submitted',
       })
     }
@@ -44,7 +44,7 @@ export const submitHandler: RequestHandler = async (req: AuthRequest, res) => {
       await foundUser.save()
       return res.status(200).json({
         submissionNo: currentSubmissionCount + 1,
-        currentStatus: newPortfolio.status,
+        status: newPortfolio.status,
         message: 'Your submission is successful',
       })
     }
@@ -82,6 +82,7 @@ export const reSubmitHandler: RequestHandler = async (
     const newValues = {
       portfolioUrl: portfolioUrl,
       submissionNo: currentSubmissionCount + 1,
+      status: 'under review',
     }
     if (foundUser && foundUser?.portfolioUrl.portfolioUrl === portfolioUrl) {
       console.log('count', currentSubmissionCount)
@@ -91,7 +92,7 @@ export const reSubmitHandler: RequestHandler = async (
 
       return res.status(200).json({
         submissionNo: currentSubmissionCount + 1,
-        currentStatus: 'under review',
+        status: 'under review',
         message: 'resubmission successfull',
       })
     }
@@ -101,7 +102,7 @@ export const reSubmitHandler: RequestHandler = async (
       await updatedData.save()
       return res.status(200).json({
         submissionNo: currentSubmissionCount + 1,
-        currentStatus: 'under review',
+        status: 'under review',
         message: 'resubmission successfull',
       })
     }
