@@ -1,9 +1,10 @@
 import { Box, Flex, useMediaQuery, Text } from '@chakra-ui/react'
-import { colors } from '../../styles/themeVars/themeVars'
+// import { colors } from '../../styles/themeVars/themeVars';
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { CardText } from './../CardText/CardText'
+import { theme } from '../../themes'
 
 interface DashboardCardPropType {
   collapsible?: boolean
@@ -27,8 +28,8 @@ export function DashboardCard({
     <Box borderRadius={'8px'} overflow={'hidden'} marginTop={'2rem'}>
       <Flex
         width={'100%'}
-        background={colors.darkGrey}
-        padding={'1.5rem'}
+        background={theme.colors.black['800']}
+        padding={'1rem'}
         alignItems={'center'}
         flexDirection={!collapsible && isSmallerThan700 ? 'column' : 'row'}
         onClick={() =>
@@ -36,7 +37,7 @@ export function DashboardCard({
         }
       >
         <Text
-          background={colors.lightBlue}
+          background={'brand.300'}
           display={'flex'}
           justifyContent={'center'}
           alignItems={'center'}
